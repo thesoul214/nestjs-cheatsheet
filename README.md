@@ -7,6 +7,7 @@
 - [세팅파일](#세팅파일)
 - [모듈](#모듈)
 - [컨트롤러](#컨트롤러)
+- [프로바이더](#프로바이더)
 
 ## 세팅파일
 
@@ -94,6 +95,9 @@ handler_name(@Param('id') id: string)
 ```nest.js
 handler_name(@Param() params: string[])
 ```
+
+## 프로바이더
+
 
 
 ## Running the app
