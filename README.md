@@ -5,6 +5,8 @@
 # Table of contents
 
 - [세팅파일](#세팅파일)
+- [모듈](#모듈)
+- [컨트롤러](#컨트롤러)
 
 ## 세팅파일
 
@@ -35,6 +37,60 @@
   format: 린트 에러가 났을지 수정
 
   start: 앱 시작
+
+
+## 모듈
+
+@Module 데코레이터가 붙어있는 클래스를 의미
+
+### 생성 CLI
+
+`nest g module boards`
+
+## 컨트롤러
+
+@Controller 데코레이터를 클래스에 설정하여 정의
+
+### 생성 CLI
+
+`nest g controller boards`
+
+### 핸들러(handler)
+
+@Get, @Post, @Delete 등과 같은 데코레이터로 장식 된 컨트롤러 클래스 내의 메소드
+
+**request.body를 획득하는 방법**
+
+request.body전체 획득
+```nest.js
+handler_name(@Body() body) {
+  console.log('body', body);
+}
+```
+
+request.body에서 특정 프로퍼티만 획득
+```nest.js
+handler_name(
+  @Body('title') title: string,
+  @Body('description') description: string
+) {
+  console.log('title', title);
+  console.log('description', description);
+}
+```
+
+**파라미터 획득 방법**
+
+id만 획득
+```nest.js
+handler_name(@Param('id') id: string)
+```
+
+여러개의 파라미터 획득
+```nest.js
+handler_name(@Param() params: string[])
+```
+
 
 ## Running the app
 
