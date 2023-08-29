@@ -45,7 +45,9 @@
 
 ### 생성 CLI
 
-`nest g module boards`
+```zsh
+nest g module boards
+```
 
 ## 컨트롤러
 
@@ -53,7 +55,9 @@
 
 ### 생성 CLI
 
-`nest g controller boards`
+```zsh
+nest g controller boards
+```
 
 ### 핸들러(handler)
 
