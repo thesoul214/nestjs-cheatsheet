@@ -61,9 +61,9 @@ nest g controller boards
 
 ### 핸들러(handler)
 
-@Get, @Post, @Delete 등과 같은 데코레이터로 장식 된 컨트롤러 클래스 내의 메소드
+@Get, @Post, @Delete 등과 같은 데코레이터로 장식된 컨트롤러 클래스 내의 메소드
 
-**request.body를 획득하는 방법**
+#### request.body를 획득하는 방법
 
 request.body전체 획득
 ```nest.js
@@ -83,7 +83,7 @@ handler_name(
 }
 ```
 
-**파라미터 획득 방법**
+#### 파라미터 획득 방법
 
 id만 획득
 ```nest.js
