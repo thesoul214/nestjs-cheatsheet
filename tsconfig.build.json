@@ -1,4 +1,6 @@
 {
   "extends": "./tsconfig.json",
+
+  // 필요없는 파일을 명시
   "exclude": ["node_modules", "test", "dist", "**/*spec.ts"]
 }

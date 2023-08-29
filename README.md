@@ -28,8 +28,6 @@
 
   tsconfig.json파일의 확장 파일로써 build할 때 필요한 셋팅을 설정
 
-  excludes에서는 빌드할 때 필요없는 파일들 명시
-
 - package.json
 
   build: 운영환경을 위한 빌드
