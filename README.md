@@ -8,6 +8,8 @@
 - [모듈](#모듈)
 - [컨트롤러](#컨트롤러)
 - [프로바이더](#프로바이더)
+  - [services](#services)
+- [DTO](#DTO)
 
 ## 세팅파일
 
@@ -98,7 +100,71 @@ handler_name(@Param() params: string[])
 
 ## 프로바이더
 
+종속성 주입을 통해 다른 클래스에 기능을 제공하는 객체
 
+@Injectable 데코레이터를 사용하여 프로바이더로 설정한다
+
+많은 Nest의 기본 클래스들(services, repositories, factories, helpers 등)이 provider로 취급될 수 있습니다.
+
+모듈에 등록해야 애플리케이션에서 사용할 수 있다. 
+
+### services
+
+데이터베이스 관련 로직을 처리
+
+컨트롤러에서는 생성자에 서비스를 지정해주어야 Dependency Injection이 이루어진다.
+
+```
+constructor(private boardsService: BoardsService)
+```
+
+#### 생성 CLI
+```zsh
+nest g service boards
+```
+
+### DTO
+
+Data Transfer Object
+
+계층간 데이터 교환을 위한 객체
+
+DB에서 데이터를 얻어 service나 controller등으로 보낼 때 사용하는 객체
+
+interface나 class를 이용해서 정의 가능하고, nestjs에서는 class를 추천
+
+dto.ts라는 확장자를 가진다. (예 : createBoard.dto.ts)
+```
+export class CreateBoardDto {
+  title: string;
+  description: string;
+}
+```
+
+컨트롤러에서 사용하는 예제
+```
+handler_name(
+  @Body('title') title: string,
+  @Body('description') description: string
+) {
+  return this.boardService.createBoard(title, description);
+}
+
+위의 컨트롤러 코드를 DTO를 이용하면 아래와 같이 변경할 수 있다. 
+
+handler_name(
+  @Body() createBoardDto: CreateBoardDto
+) {
+  return this.boardService.createBoard(createBoardDto);
+}
+```
+
+```
+서비스 코드
+createBoard(createBoardDto: CreateBoardDto) {
+  const {title, description} = createBoardDto
+}
+```
 
 ## Running the app
 
