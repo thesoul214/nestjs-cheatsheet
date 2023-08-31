@@ -123,13 +123,13 @@ constructor(private boardsService: BoardsService)
 nest g service boards
 ```
 
-### DTO
+## DTO
 
 Data Transfer Object
 
 계층간 데이터 교환을 위한 객체
 
-DB에서 데이터를 얻어 service나 controller등으로 보낼 때 사용하는 객체
+DB에서 데이터를 얻어 service나 controller등으로 보낼 때 사용한다.
 
 interface나 class를 이용해서 정의 가능하고, nestjs에서는 class를 추천
 
@@ -138,6 +138,13 @@ dto.ts라는 확장자를 가진다. (예 : createBoard.dto.ts)
 export class CreateBoardDto {
   title: string;
   description: string;
+}
+```
+
+```
+서비스 코드
+createBoard(createBoardDto: CreateBoardDto) {
+  const {title, description} = createBoardDto
 }
 ```
 
@@ -156,13 +163,6 @@ handler_name(
   @Body() createBoardDto: CreateBoardDto
 ) {
   return this.boardService.createBoard(createBoardDto);
-}
-```
-
-```
-서비스 코드
-createBoard(createBoardDto: CreateBoardDto) {
-  const {title, description} = createBoardDto
 }
 ```
 
