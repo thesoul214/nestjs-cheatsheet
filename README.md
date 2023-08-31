@@ -144,7 +144,7 @@ export class CreateBoardDto {
 컨트롤러에서 사용하는 예제
 
 ```
-서비스 코드
+// 서비스 코드
 createBoard(createBoardDto: CreateBoardDto) {
   const {title, description} = createBoardDto
 }
