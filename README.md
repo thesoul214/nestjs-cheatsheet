@@ -141,6 +141,8 @@ export class CreateBoardDto {
 }
 ```
 
+컨트롤러에서 사용하는 예제
+
 ```
 서비스 코드
 createBoard(createBoardDto: CreateBoardDto) {
@@ -148,7 +150,6 @@ createBoard(createBoardDto: CreateBoardDto) {
 }
 ```
 
-컨트롤러에서 사용하는 예제
 ```
 handler_name(
   @Body('title') title: string,
