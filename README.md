@@ -115,7 +115,7 @@ handler_name(@Param() params: string[])
 
 컨트롤러에서는 생성자에 서비스를 지정해주어야 Dependency Injection이 이루어진다.
 
-```
+```nest.js
 constructor(private boardsService: BoardsService)
 ```
 
@@ -136,9 +136,9 @@ data transformation과 data validation 기능을 담당
 
   `@UsePipes()` 데코레이터를 이용하여 사용한다
 
-  이 파이프틑 모든 파라미터에 적용된다.
+  이 파이프는 모든 파라미터에 적용된다.
 
-  ```
+  ```nest.js
   @post()
   @UsePipes(pipe)
   createBoard(
@@ -152,7 +152,8 @@ data transformation과 data validation 기능을 담당
   특정 파라미터에만 적용되는 파이프
 
   title파라미터에만 적용되는 파이프 예
-  ```
+
+  ```nest.js
   @post()
   createBoard(
     @Body('title', ParameterPiple) title,
@@ -166,7 +167,7 @@ data transformation과 data validation 기능을 담당
 
   main.ts에 넣어주면 된다.
 
-  ```
+  ```nest.js
   app.useGlobalPipes(GlobalPipes);
   ```
 
