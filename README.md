@@ -196,7 +196,7 @@ DB에서 데이터를 얻어 service나 controller등으로 보낼 때 사용한
 interface나 class를 이용해서 정의 가능하고, nestjs에서는 class를 추천
 
 dto.ts라는 확장자를 가진다. (예 : createBoard.dto.ts)
-```
+```nest.js
 export class CreateBoardDto {
   title: string;
   description: string;
@@ -205,14 +205,14 @@ export class CreateBoardDto {
 
 컨트롤러에서 사용하는 예제
 
-```
+```nest.js
 // 서비스 코드
 createBoard(createBoardDto: CreateBoardDto) {
   const {title, description} = createBoardDto
 }
 ```
 
-```
+```nest.js
 handler_name(
   @Body('title') title: string,
   @Body('description') description: string
