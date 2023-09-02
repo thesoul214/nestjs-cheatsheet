@@ -8,7 +8,8 @@
 - [모듈](#모듈)
 - [컨트롤러](#컨트롤러)
 - [프로바이더](#프로바이더)
-  - [services](#services)
+  - [Services](#services)
+  - [Pipes](#pipes)
 - [DTO](#DTO)
 
 ## 세팅파일
@@ -122,6 +123,66 @@ constructor(private boardsService: BoardsService)
 ```zsh
 nest g service boards
 ```
+
+### pipes
+
+data transformation과 data validation 기능을 담당
+
+컨트롤러의 핸들러에서 클라이언트의 request를 처리하기 전에 파라미터를 받아서 처리해주는 역할
+
+#### 사용방법
+
+- Handler-level pipes
+
+  `@UsePipes()` 데코레이터를 이용하여 사용한다
+
+  이 파이프틑 모든 파라미터에 적용된다.
+
+  ```
+  @post()
+  @UsePipes(pipe)
+  createBoard(
+    @Body('title') title,
+    @Body('description') description
+  )
+  ```
+
+- Parameter-level pipes
+
+  특정 파라미터에만 적용되는 파이프
+
+  title파라미터에만 적용되는 파이프 예
+  ```
+  @post()
+  createBoard(
+    @Body('title', ParameterPiple) title,
+    @Body('description') description
+  )
+  ```
+
+- Global-level pipes
+
+  어플리케이션 레벨의 파이프로써, 클라이언트에서 들어오는 모든 요청에 적용된다.
+
+  main.ts에 넣어주면 된다.
+
+  ```
+  app.useGlobalPipes(GlobalPipes);
+  ```
+
+#### Built-in Pipes
+
+- ValidationPipe
+- ParseIntPipe
+- ParseBoolPipe
+- ParseArrayPipe
+- ParseUUIDPipe
+- DefaultValuePipe 
+
+
+
+
+
 
 ## DTO
 
