@@ -249,7 +249,7 @@ export class CreateBoardDto {
 
 boards.controller.ts
 
-Bukld-in Pipes인 ValidationPipe를 사용한다고 컨트롤러에 지정
+컨트롤러에 Built-in Pipes인 ValidationPipe를 사용한다고 지정
 ```nest.js
 @post()
 @UsePipes(ValidationPipe)
