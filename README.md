@@ -8,9 +8,9 @@
 - [모듈](#모듈)
 - [컨트롤러](#컨트롤러)
 - [프로바이더](#프로바이더)
-  - [Services](#services)
-  - [Pipes](#pipes)
+- [Services](#services)
 - [DTO](#DTO)
+- [Pipes](#pipes)
 
 ## 세팅파일
 
@@ -109,7 +109,7 @@ handler_name(@Param() params: string[])
 
 모듈에 등록해야 애플리케이션에서 사용할 수 있다. 
 
-### services
+## services
 
 데이터베이스 관련 로직을 처리
 
@@ -123,67 +123,6 @@ constructor(private boardsService: BoardsService)
 ```zsh
 nest g service boards
 ```
-
-### pipes
-
-data transformation과 data validation 기능을 담당
-
-컨트롤러의 핸들러에서 클라이언트의 request를 처리하기 전에 파라미터를 받아서 처리해주는 역할
-
-#### 사용방법
-
-- Handler-level pipes
-
-  `@UsePipes()` 데코레이터를 이용하여 사용한다
-
-  이 파이프는 모든 파라미터에 적용된다.
-
-  ```nest.js
-  @post()
-  @UsePipes(pipe)
-  createBoard(
-    @Body('title') title,
-    @Body('description') description
-  )
-  ```
-
-- Parameter-level pipes
-
-  특정 파라미터에만 적용되는 파이프
-
-  title파라미터에만 적용되는 파이프 예
-
-  ```nest.js
-  @post()
-  createBoard(
-    @Body('title', ParameterPiple) title,
-    @Body('description') description
-  )
-  ```
-
-- Global-level pipes
-
-  어플리케이션 레벨의 파이프로써, 클라이언트에서 들어오는 모든 요청에 적용된다.
-
-  main.ts에 넣어주면 된다.
-
-  ```nest.js
-  app.useGlobalPipes(GlobalPipes);
-  ```
-
-#### Built-in Pipes
-
-- ValidationPipe
-- ParseIntPipe
-- ParseBoolPipe
-- ParseArrayPipe
-- ParseUUIDPipe
-- DefaultValuePipe 
-
-
-
-
-
 
 ## DTO
 
@@ -227,6 +166,137 @@ handler_name(
 ) {
   return this.boardService.createBoard(createBoardDto);
 }
+```
+
+## pipes
+
+data transformation과 data validation 기능을 담당
+
+컨트롤러의 핸들러에서 클라이언트의 request를 처리하기 전에 파라미터를 받아서 처리해주는 역할
+
+### 사용방법
+
+- Handler-level pipes
+
+  `@UsePipes()` 데코레이터를 이용하여 사용한다
+
+  이 파이프는 모든 파라미터에 적용된다.
+
+  ```nest.js
+  @post()
+  @UsePipes(pipe)
+  createBoard(
+    @Body('title') title,
+    @Body('description') description
+  )
+  ```
+
+- Parameter-level pipes
+
+  특정 파라미터에만 적용되는 파이프
+
+  title파라미터에만 적용되는 파이프 예
+
+  ```nest.js
+  @post()
+  createBoard(
+    @Body('title', ParameterPiple) title,
+    @Body('description') description
+  )
+  ```
+
+- Global-level pipes
+
+  어플리케이션 레벨의 파이프로써, 클라이언트에서 들어오는 모든 요청에 적용된다.
+
+  main.ts에 넣어주면 된다.
+
+  ```nest.js
+  app.useGlobalPipes(GlobalPipes);
+  ```
+
+### Built-in Pipes
+
+- ValidationPipe
+- ParseIntPipe
+- ParseBoolPipe
+- ParseArrayPipe
+- ParseUUIDPipe
+- DefaultValuePipe 
+
+필요한 모듈 설치
+
+`npm install class-validator class-transformer --save`
+
+https://github.com/typestack/class-validator#validation-decorators
+
+create-board.dto.ts
+```nest.js
+import { IsNotEmpty } from "class-validator";
+
+export class CreateBoardDto {
+  @IsNotEmpty()
+  title: string;
+
+  @IsNotEmpty()
+  description: string;
+}
+```
+
+boards.controller.ts
+```nest.js
+@post()
+@UsePipes(ValidationPipe)
+createBoard(createBoardDto: CreateBoardDto) {
+  const {title, description} = createBoardDto
+}
+```
+
+### Custom Pipes
+
+PipeTransform 인터페이스를 구현하여 정의할 수 있다.
+
+모든 파이프는 `@transform()`이라는 메소드가 필요
+
+transform() 메소드
+
+파라미터 
+- value : 클라이언트에서 전송된 파라미터의 값
+- metadata : 인자에 대한 메타 데이터를 포함한 객체
+
+board-status-validation.pipe.ts
+
+상태(status)가 PRIVATE과 PUBLIC만 가질 수 있도록 하는 pipe 예제
+```nest.js
+export class BoardStatusValidationPipe implements PipeTransform
+{
+  readonly StatusOptions = {
+    BoardStatus.PRIVATE,
+    BoardStatus.PUBLIC,
+  }
+
+  transform(value: any, metadata: ArgumentMetadata){
+    value = value.toUpperCase();
+
+    if (!this.isStatusValid(valid)){
+      throw new BadRequestException(`${value}` isn't in the status options`)
+    }
+    return value;
+  }
+
+  private isStatusValid(status: any){
+    const index = this.StatusOptions.indexOf(status);
+    return index !== -1
+  }
+}
+```
+
+controller.ts
+```nest.js
+@patch('/:id/status')
+handler_name(
+  @Body('status', BoardStatusValidationPipe) status: BoardStatus
+)
 ```
 
 ## Running the app
