@@ -230,10 +230,9 @@ data transformation과 data validation 기능을 담당
 npm install class-validator class-transformer --save
 ```
 
-데코레이터 종류
+> 참고 : 데코레이터 종류
 
-https://github.com/typestack/class-validator#validation-decorators
-
+  https://github.com/typestack/class-validator#validation-decorators
 
 create-board.dto.ts
 
