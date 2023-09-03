@@ -232,7 +232,7 @@ npm install class-validator class-transformer --save
 
 #### 사용법
 
-create-board.dto.ts
+createBoard.dto.ts
 
 IsNotEmpty 데코레이터 사용 예
 ```nest.js
