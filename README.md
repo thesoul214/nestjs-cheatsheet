@@ -168,15 +168,15 @@ handler_name(
 }
 ```
 
-## pipes
+## Pipes
 
 data transformation과 data validation 기능을 담당
 
-컨트롤러의 핸들러에서 클라이언트의 request를 처리하기 전에 파라미터를 받아서 처리해주는 역할
+컨트롤러에서 클라이언트의 request를 처리하기 전에 파라미터를 받아서 처리해주는 역할
 
-### 사용방법
+### 종류
 
-- Handler-level pipes
+- Handler-level Pipes
 
   `@UsePipes()` 데코레이터를 이용하여 사용한다
 
@@ -191,7 +191,7 @@ data transformation과 data validation 기능을 담당
   )
   ```
 
-- Parameter-level pipes
+- Parameter-level Pipes
 
   특정 파라미터에만 적용되는 파이프
 
@@ -205,11 +205,11 @@ data transformation과 data validation 기능을 담당
   )
   ```
 
-- Global-level pipes
+- Global-level Pipes
 
   어플리케이션 레벨의 파이프로써, 클라이언트에서 들어오는 모든 요청에 적용된다.
 
-  main.ts에 넣어주면 된다.
+  main.ts에 지정해준다.ㄴ
 
   ```nest.js
   app.useGlobalPipes(GlobalPipes);
@@ -224,13 +224,20 @@ data transformation과 data validation 기능을 담당
 - ParseUUIDPipe
 - DefaultValuePipe 
 
-필요한 모듈 설치
+#### 필요한 모듈 설치
 
-`npm install class-validator class-transformer --save`
+```zsh
+npm install class-validator class-transformer --save
+```
+
+데코레이터 종류
 
 https://github.com/typestack/class-validator#validation-decorators
 
+
 create-board.dto.ts
+
+IsNotEmpty 데코레이터 사용 예
 ```nest.js
 import { IsNotEmpty } from "class-validator";
 
@@ -244,6 +251,8 @@ export class CreateBoardDto {
 ```
 
 boards.controller.ts
+
+Bukld-in Pipes인 ValidationPipe를 사용한다고 컨트롤러에 지정
 ```nest.js
 @post()
 @UsePipes(ValidationPipe)
@@ -258,15 +267,17 @@ PipeTransform 인터페이스를 구현하여 정의할 수 있다.
 
 모든 파이프는 `@transform()`이라는 메소드가 필요
 
-transform() 메소드
+#### transform() 메소드
 
 파라미터 
+
 - value : 클라이언트에서 전송된 파라미터의 값
+
 - metadata : 인자에 대한 메타 데이터를 포함한 객체
 
 board-status-validation.pipe.ts
 
-상태(status)가 PRIVATE과 PUBLIC만 가질 수 있도록 하는 pipe 예제
+상태(status)가 PRIVATE과 PUBLIC만 가질 수 있도록 제한하는 pipe 예제
 ```nest.js
 export class BoardStatusValidationPipe implements PipeTransform
 {
@@ -292,6 +303,8 @@ export class BoardStatusValidationPipe implements PipeTransform
 ```
 
 controller.ts
+
+Parameter-level Pipes로 사용
 ```nest.js
 @patch('/:id/status')
 handler_name(
