@@ -230,11 +230,6 @@ data transformation과 data validation 기능을 담당
 npm install class-validator class-transformer --save
 ```
 
-> 참고 : 데코레이터 종류
-
-  https://github.com/typestack/class-validator#validation-decorators
-
-
 #### 사용법
 
 create-board.dto.ts
@@ -262,6 +257,10 @@ createBoard(createBoardDto: CreateBoardDto) {
   const {title, description} = createBoardDto
 }
 ```
+
+> 참고 : 데코레이터 종류
+
+  https://github.com/typestack/class-validator#validation-decorators
 
 ### Custom Pipes
 
