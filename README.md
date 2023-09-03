@@ -264,7 +264,7 @@ createBoard(createBoardDto: CreateBoardDto) {
 
 PipeTransform 인터페이스를 구현하여 정의할 수 있다.
 
-모든 파이프는 `@transform()`이라는 메소드가 필요
+모든 파이프는 `@transform()` 메소드가 필요
 
 #### transform() 메소드
 
@@ -273,6 +273,8 @@ PipeTransform 인터페이스를 구현하여 정의할 수 있다.
 - value : 클라이언트에서 전송된 파라미터의 값
 
 - metadata : 인자에 대한 메타 데이터를 포함한 객체
+
+#### 사용법
 
 board-status-validation.pipe.ts
 
