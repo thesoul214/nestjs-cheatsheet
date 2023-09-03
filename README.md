@@ -258,9 +258,7 @@ createBoard(createBoardDto: CreateBoardDto) {
 }
 ```
 
-> 참고 : 데코레이터 종류
-
-> https://github.com/typestack/class-validator#validation-decorators
+> 데코레이터 종류 : https://github.com/typestack/class-validator#validation-decorators
 
 ### Custom Pipes
 
