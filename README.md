@@ -234,6 +234,9 @@ npm install class-validator class-transformer --save
 
   https://github.com/typestack/class-validator#validation-decorators
 
+
+#### 사용법
+
 create-board.dto.ts
 
 IsNotEmpty 데코레이터 사용 예
