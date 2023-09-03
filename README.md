@@ -264,7 +264,7 @@ createBoard(createBoardDto: CreateBoardDto) {
 
 PipeTransform 인터페이스를 구현하여 정의할 수 있다.
 
-모든 파이프는 `@transform()` 메소드가 필요
+모든 파이프는 `transform()` 메소드가 필요
 
 #### transform() 메소드
 
@@ -291,7 +291,7 @@ export class BoardStatusValidationPipe implements PipeTransform
     value = value.toUpperCase();
 
     if (!this.isStatusValid(valid)){
-      throw new BadRequestException(`${value}` isn't in the status options`)
+      throw new BadRequestException(`${value} isn't in the status options`)
     }
     return value;
   }
