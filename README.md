@@ -366,11 +366,11 @@ export class Board extends BaseEntity {
 
 ### Repository
 
-엔티티 객체와 함께 작동하며, DB 데이터를 처리한다.
+엔티티 객체와 함께 작동하며 DB 데이터를 처리한다.
 
 참고 : https://typeorm.delightful.studio/classes/_repository_repository_.repository.html
 
-데이터베이스에 관련된 일은 서비스가 아닌 Repository에서 해주는데 이것을 Repository Pattern이라고 한다.
+데이터베이스에 관련된 로직은 Services가 아닌 Repository에 작성하는데 이러한 디자인 패턴을 Repository Pattern이라고 한다.
 
 #### 사용법
 
