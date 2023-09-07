@@ -11,6 +11,7 @@
 - [Services](#services)
 - [DTO](#DTO)
 - [Pipes](#pipes)
+- [TypeORM](#typeORM)
 
 ## 세팅파일
 
@@ -312,6 +313,85 @@ handler_name(
   @Body('status', BoardStatusValidationPipe) status: BoardStatus
 )
 ```
+
+## typeORM
+
+TypeORM : Object Relational Mapping
+
+객체 관계형 매퍼 라이브러리
+
+### 필요한 모듈 설치
+
+- @nestjs/typeorm : NestJS에서 TypeORM을 사용하기 위해 연동시켜주는 모듈
+- typeorm : TypeORM 모듈
+- pg : Postgresql 모듈
+
+```zsh
+npm install pg typeorm @nestjs/typeorm --save
+```
+
+참고 : https://docs.nestjs.com/techniques/database
+
+### 프로젝트에 설정하기
+
+1. configs/typeorm.config.ts 파일 생성하여 설정
+
+Entities : 엔티티를 이용해서 데이터베이스 테이블을 생성하므로, 엔티티 파일이 어디에 있는지 설정해준다.
+
+synchronize : true의 경우 어플리케이션을 다시 실행할 때 엔티티안에서 수정된 변경값등을 해당 테이블을 Drop한 후 다시 생성해주므로 운영서버에서는 false로 설정해야 한다.
+
+2. app.module.ts에 import하기
+
+### Entity
+
+엔티티를 이용하여 데이터베이스 테이블을 정의한다.
+
+@Entity() 데코레이터를 클래스에 설정하여 해당 클래스를 엔티티로 인식시킨다.
+
+board.entity.ts
+```nest.js
+import { BaseEntity } from "typeorm";
+
+@Entity()
+export class Board extends BaseEntity {
+  @PrimaryGeneratedColumn()
+  id: number;
+
+  @column()
+  title: string;
+
+  ...
+}
+```
+
+### Repository
+
+엔티티 객체와 함께 작동하며, DB 데이터를 처리한다.
+
+참고 : https://typeorm.delightful.studio/classes/_repository_repository_.repository.html
+
+데이터베이스에 관련된 일은 서비스가 아닌 Repository에서 해주는데 이것을 Repository Pattern이라고 한다.
+
+#### 사용법
+
+1. board.repository.ts 생성
+
+```nest.js
+import { EntityRepository, Repository } from "typeorm";
+import { Board } from "./board.entity";
+
+@EntityRepository(Board)
+export class BoardRepository extends Repository<Board> {
+  ...
+}
+```
+
+2. 생성한 repository 파일을 board.module.ts에 설정
+
+
+
+
+
 
 ## Running the app
 
