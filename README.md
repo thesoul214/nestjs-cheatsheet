@@ -117,7 +117,7 @@ handler_name(@Param() params: string[])
 컨트롤러에서는 생성자에 서비스를 지정해주어야 Dependency Injection이 이루어진다.
 
 ```nest.js
-constructor(private boardsService: BoardsService)
+constructor(private boardsService: BoardsService){}
 ```
 
 생성 CLI
