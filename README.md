@@ -372,6 +372,21 @@ export class Board extends BaseEntity {
 
 데이터베이스에 관련된 로직은 Services가 아닌 Repository에 작성하는데 이러한 디자인 패턴을 Repository Pattern이라고 한다.
 
+Repository를 Services에서 사용하기 위해서는 주입을 해주어야 한다.
+```nest.js
+export class BoardService {
+  constructor(
+    @InjectRepository(BoardRepository)
+    private boardRepository: BoardRepository
+  )
+
+  async getAllBoard(): Promise<Board[]> {
+    return this.boardRepository.find();
+  }
+}
+```
+
+
 #### 사용법
 
 1. board.repository.ts 생성
