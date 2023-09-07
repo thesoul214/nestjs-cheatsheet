@@ -335,7 +335,6 @@ npm install pg typeorm @nestjs/typeorm --save
 ### 프로젝트에 설정하기
 
 1. configs/typeorm.config.ts 파일 생성하여 설정
-
   Entities : 엔티티를 이용해서 데이터베이스 테이블을 생성하므로, 엔티티 파일이 어디에 있는지 설정해준다.
 
   synchronize : true의 경우 어플리케이션을 다시 실행할 때 엔티티안에서 수정된 변경값등을 해당 테이블을 Drop한 후 다시 생성해주므로 운영서버에서는 false로 설정해야 한다.
