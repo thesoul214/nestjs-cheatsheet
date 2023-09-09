@@ -12,6 +12,8 @@
 - [DTO](#DTO)
 - [Pipes](#pipes)
 - [TypeORM](#typeORM)
+- [Data Relations](#relations)
+- [Logging](#Logging)
 
 ## 세팅파일
 
@@ -405,7 +407,7 @@ export class BoardService {
 }
 ```
 
-## Many-to-one / one-to-many relations
+## relations
 
 참고 : https://orkhan.gitbook.io/typeorm/docs/many-to-one-one-to-many-relations
 
@@ -453,10 +455,22 @@ const boards = await query.getMany();
 return boards;
 ```
 
+## Logging
 
+built-in된 logger 클래스가 존재
 
+controller에서 로그 남기는 예
 
+```nest.js
+export class BoardsController {
+  private logger = new Logger('BoardsController');
 
+  logger.log('log');
+}
+```
+
+> [BoardsController] log
+라는 로그가 출력된다.
 
 ## Running the app
 
