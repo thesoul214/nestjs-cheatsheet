@@ -14,6 +14,7 @@
 - [TypeORM](#typeORM)
 - [Data Relations](#relations)
 - [Logging](#Logging)
+- [Configuration](#Configuration)
 
 ## 세팅파일
 
@@ -471,6 +472,56 @@ export class BoardsController {
 
 > [BoardsController] log
 라는 로그가 출력된다.
+
+
+## Configuration
+
+코드가 실행되고 있는 환경을 구분하거나 노출되지 않아야 하는 코드를 관리하는 방법
+
+- codebase : xml, json, yaml로써 노출되어야 되는 코드 설정
+
+- 환경 변수 : 외부에 노출되지 않아야 하는 코드 설정
+
+### codebase 사용법
+
+#### 설치 
+
+```zsh
+npm install config --save
+```
+
+#### config 폴더 생성 후 파일 생성(yaml 예)
+
+```yaml
+server: 
+  port: 3000
+
+db:
+  type: 'postgres'
+  port: 5432
+
+jwt:
+  expiresIn: 3600
+```
+
+```nest.js
+import * as config from 'config';
+
+const serverConfig = config.get('server');
+const port = serverConfig.port;
+```
+
+### 환경변수 사용법
+
+```nest.js
+process.env.{환경변수 이름}
+```
+
+
+
+
+
+
 
 ## Running the app
 
