@@ -405,6 +405,56 @@ export class BoardService {
 }
 ```
 
+## Many-to-one / one-to-many relations
+
+참고 : https://orkhan.gitbook.io/typeorm/docs/many-to-one-one-to-many-relations
+
+파라미터
+
+- type
+
+- inverseSide ( 연결된 반대편에서 해당 엔티티에 접근하는 방법 지정 )
+
+- option
+
+  - eager, lazy 등
+
+```nest.js
+// user.entity.ts
+export class User extends BaseEntity{
+  컬럼 정의
+
+  // 두번째 파라미터 : board에서 user에 접근할 때는 board.user로 접근한다고 지정
+  @OneToMany(type => Board, board => board.user, { eager: true })
+  boards: Board[];
+}
+
+// board.entity.ts
+export class Board extends BaseEntity{
+  컬럼 정의
+
+  @ManyToOne(type => User, user => user.boards, { eager: false })
+  user: User;
+}
+```
+
+위와 같은 엔티티를 지정할 경우, board테이블에 userId 칼럼이 추가된다. 칼럼명을 임의로 지정하려면 `@JoinColumn({ name: 'cusotm_col_name '})` 처럼 설정한다.
+
+
+### queryBuilder 사용 예
+
+```nest.js
+const query = this.boardRepository.createQueryBuilder('board');
+
+query.where('board.userId = :userId', {userId: user.id});
+
+const boards = await query.getMany();
+
+return boards;
+```
+
+
+
 
 
 
