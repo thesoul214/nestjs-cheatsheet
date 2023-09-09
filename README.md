@@ -441,7 +441,9 @@ export class Board extends BaseEntity{
 }
 ```
 
-위와 같은 엔티티를 지정할 경우, board테이블에 userId 칼럼이 추가된다. 칼럼명을 임의로 지정하려면 `@JoinColumn({ name: 'cusotm_col_name '})` 처럼 설정한다.
+위와 같은 엔티티를 지정할 경우, board테이블에 userId 칼럼이 추가된다. 
+
+칼럼명을 임의로 지정하려면 `@JoinColumn({ name: 'cusotm_col_name '})` 처럼 설정한다.
 
 
 ### queryBuilder 사용 예
