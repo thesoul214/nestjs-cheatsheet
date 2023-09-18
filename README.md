@@ -508,47 +508,27 @@ export class BoardsController {
 
 ## Configuration
 
-코드가 실행되고 있는 환경을 구분하거나 노출되지 않아야 하는 코드를 관리하는 방법
+코드가 실행되고 있는 환경을 구분하여 코드를 관리하는 방법
 
-- codebase : xml, json, yaml로써 노출되어야 되는 코드 설정
-
-- 환경 변수 : 외부에 노출되지 않아야 하는 코드 설정
-
-### codebase 사용법
-
-#### 설치 
+### .env
 
 ```zsh
-npm install config --save
+npm install @nestjs/config
 ```
 
-#### config 폴더 생성 후 파일 생성(yaml 예)
+dotenv라는 라이브러리를 포함하고 있다. dotenv 라이브러리는 .env파일과 환경변수 양쪽에서 구성 정보를 읽고 모든 정보를 단일 개체로 조합한다. 
 
-```yaml
-server: 
-  port: 3000
+만일 같은 이름의 변수가 양쪽에 정의되어 있을 경우, 환경변수가 우선된다.
 
-db:
-  type: 'postgres'
-  port: 5432
 
-jwt:
-  expiresIn: 3600
-```
 
-```nest.js
-import * as config from 'config';
+### 환경 변수
 
-const serverConfig = config.get('server');
-const port = serverConfig.port;
-```
-
-### 환경변수 사용법
+외부에 노출되지 않아야 하는 코드 설정
 
 ```nest.js
 process.env.{환경변수 이름}
 ```
-
 
 
 
