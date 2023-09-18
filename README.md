@@ -459,7 +459,7 @@ const boards = await query.getMany();
 return boards;
 ```
 
-## intercepter
+## Intercepter
 
 client에서 들어오는 요청이나 controller에서 client에 보내는 응답을 가로채서 특정한 처리를 하는 기능
 
