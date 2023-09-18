@@ -480,13 +480,13 @@ src/interceptors/serialize.interceptors.ts
 
 #### 2. intercepter 사용
 
-2. 컨트롤러 커스텀 데코레이터 지정
+컨트롤러에 커스텀 데코레이터 지정
 
 ```nest.js
 @Serialize(UserDto)
 ```
 
-위의 코드로 인해 User정보를 클라이언트에 전달할 때, user.dto.ts에 정의된 id, email만 전달한다.
+2번까지 진행하면, user.dto.ts에 정의된 id, email만 클라이언트에 전달한다.
 
 ## Logging
 
