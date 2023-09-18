@@ -486,7 +486,7 @@ src/interceptors/serialize.interceptors.ts
 @Serialize(UserDto)
 ```
 
-2번까지 진행하면, user.dto.ts에 정의된 id, email만 클라이언트에 전달한다.
+2번까지 진행하면, user.dto.ts에 정의된 id, email 프로퍼티만 클라이언트에 전달한다.
 
 ## Logging
 
