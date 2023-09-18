@@ -516,7 +516,9 @@ export class BoardsController {
 npm install @nestjs/config
 ```
 
-dotenv라는 라이브러리를 포함하고 있다. dotenv 라이브러리는 .env파일과 환경변수 양쪽에서 구성 정보를 읽고 모든 정보를 단일 개체로 조합한다. 
+@nestjs/config는 dotenv라는 라이브러리를 포함하고 있다. 
+
+dotenv 라이브러리는 .env파일과 환경변수 양쪽에서 구성 정보를 읽고 모든 정보를 단일 개체로 조합한다. 
 
 만일 같은 이름의 변수가 양쪽에 정의되어 있을 경우, 환경변수가 우선된다.
 
