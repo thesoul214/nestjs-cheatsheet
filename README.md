@@ -534,6 +534,7 @@ importb { ConfigModule } from '@nestjs/config';
 
 ConfigModule.forRoot({
   isGlobal: true,
+
   // NODE_ENV를 지정하여 서버를 실행함으로써 실행환경마다 다른 .env 파일을 참고하게 한다.
   envFilePath: `.env.${process.env.NODE_ENV}`
 })
@@ -543,7 +544,7 @@ ConfigModule.forRoot({
 
 서비스나 컨트롤러 등 환경변수를 사용하고자 하는 곳에 ConfigService를 주입하여 사용한다.
 
-root 모듈에서 `isGlobal: true`로 설정해 주었기 때문에 module에서 ConfigModule을 import하지 않아도 된다.
+root 모듈에서 `isGlobal: true`로 설정해 주었기 때문에 따로 module에서 ConfigModule을 import하지 않아도 된다.
 
 app.service.ts의 예
 ```nest.js
@@ -555,7 +556,8 @@ export class AppService {
 
   getHello() {
     const host = this.configService.get<string>("DATABASE_HOST");
-    # DATABASE_PORT가 정의되지 않은 경우, 3000을 default로 설정한다.
+
+    // DATABASE_PORT가 정의되지 않은 경우, 3000을 default로 설정한다.
     const port = this.configService.get<number>("DATABASE_PORT", 3000);
     return {
       host,
