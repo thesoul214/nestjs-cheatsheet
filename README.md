@@ -527,7 +527,7 @@ dotenv 라이브러리는 .env파일과 환경변수 양쪽에서 구성 정보�
 - DATABASE_HOST
 - DATABASE_PORT
 
-#### 1. app.module.ts에 configModule을 설정
+#### 1. root 모듈에 configModule을 설정
 
 ```nest.js
 importb { ConfigModule } from '@nestjs/config';
@@ -541,7 +541,9 @@ ConfigModule.forRoot({
 
 #### 2. 환경변수를 사용하고자 하는 곳에서 ConfigService 사용
 
-서비스나 컨트롤러 등 환경변수를 사용하고자 하는 곳에서 ConfigService를 주입하여 사용한다.
+서비스나 컨트롤러 등 환경변수를 사용하고자 하는 곳에 ConfigService를 주입하여 사용한다.
+
+root 모듈에서 `isGlobal: true`로 설정해 주었기 때문에 module에서 ConfigModule을 import하지 않아도 된다.
 
 app.service.ts의 예
 ```nest.js
