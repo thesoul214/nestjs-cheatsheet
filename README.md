@@ -559,10 +559,6 @@ export class AppService {
 
     // DATABASE_PORT가 정의되지 않은 경우, 3000을 default로 설정한다.
     const port = this.configService.get<number>("DATABASE_PORT", 3000);
-    return {
-      host,
-      port,
-    };
   }
 }
 ```
