@@ -527,41 +527,41 @@ dotenv 라이브러리는 .env파일과 환경변수 양쪽에서 구성 정보�
 - DATABASE_HOST
 - DATABASE_PORT
 
-1. app.module.ts에 configModule을 설정
+#### 1. app.module.ts에 configModule을 설정
 
-  ```nest.js
-  importb { ConfigModule } from '@nestjs/config';
+```nest.js
+importb { ConfigModule } from '@nestjs/config';
 
-  ConfigModule.forRoot({
-    isGlobal: true,
-    // NODE_ENV를 지정하여 서버를 실행함으로써 실행환경마다 다른 .env 파일을 참고하게 한다.
-    envFilePath: `.env.${process.env.NODE_ENV}`
-  })
-  ```
+ConfigModule.forRoot({
+  isGlobal: true,
+  // NODE_ENV를 지정하여 서버를 실행함으로써 실행환경마다 다른 .env 파일을 참고하게 한다.
+  envFilePath: `.env.${process.env.NODE_ENV}`
+})
+```
 
-2. 환경변수를 사용하고자 하는 곳에서 ConfigService 사용
+#### 2. 환경변수를 사용하고자 하는 곳에서 ConfigService 사용
 
-  서비스나 컨트롤러 등 환경변수를 사용하고자 하는 곳에서 ConfigService를 주입하여 사용한다.
+서비스나 컨트롤러 등 환경변수를 사용하고자 하는 곳에서 ConfigService를 주입하여 사용한다.
 
-  app.service.ts의 예
-  ```nest.js
-  import { ConfigService } from "@nestjs/config";
+app.service.ts의 예
+```nest.js
+import { ConfigService } from "@nestjs/config";
 
-  @Injectable()
-  export class AppService {
-    constructor(private configService: ConfigService) {}
+@Injectable()
+export class AppService {
+  constructor(private configService: ConfigService) {}
 
-    getHello() {
-      const host = this.configService.get<string>("DATABASE_HOST");
-      # DATABASE_PORT가 정의되지 않은 경우, 3000을 default로 설정한다.
-      const port = this.configService.get<number>("DATABASE_PORT", 3000);
-      return {
-        host,
-        port,
-      };
-    }
+  getHello() {
+    const host = this.configService.get<string>("DATABASE_HOST");
+    # DATABASE_PORT가 정의되지 않은 경우, 3000을 default로 설정한다.
+    const port = this.configService.get<number>("DATABASE_PORT", 3000);
+    return {
+      host,
+      port,
+    };
   }
-  ```
+}
+```
 
 ## 기타 등등
 
