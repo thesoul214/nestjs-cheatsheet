@@ -508,7 +508,7 @@ export class BoardsController {
 
 ## Configuration
 
-코드가 실행되고 있는 환경을 구분하여 코드를 관리하는 방법
+코드가 실행되고 있는 환경을 구분하여 변수를 관리하는 방법
 
 ```zsh
 npm install @nestjs/config
@@ -529,39 +529,39 @@ dotenv 라이브러리는 .env파일과 환경변수 양쪽에서 구성 정보�
 
 1. app.module.ts에 configModule을 설정
 
-```nest.js
-importb { ConfigModule } from '@nestjs/config';
+  ```nest.js
+  importb { ConfigModule } from '@nestjs/config';
 
-ConfigModule.forRoot({
-  isGlobal: true,
-  // 서버를 실행할 때 NODE_ENV를 정의하여 실행시킴으로써 실행환경마다 다른 .env 파일을 참고하게 한다.
-  envFilePath: `.env.${process.env.NODE_ENV}`
-})
-```
+  ConfigModule.forRoot({
+    isGlobal: true,
+    // NODE_ENV를 지정하여 서버를 실행함으로써 실행환경마다 다른 .env 파일을 참고하게 한다.
+    envFilePath: `.env.${process.env.NODE_ENV}`
+  })
+  ```
 
 2. 환경변수를 사용하고자 하는 곳에서 ConfigService 사용
 
-서비스나 컨트롤러 등 환경변수를 사용하고자 하는 곳에서 ConfigService를 주입하여 사용한다.
+  서비스나 컨트롤러 등 환경변수를 사용하고자 하는 곳에서 ConfigService를 주입하여 사용한다.
 
-app.service.ts의 예
-```nest.js
-import { ConfigService } from "@nestjs/config";
+  app.service.ts의 예
+  ```nest.js
+  import { ConfigService } from "@nestjs/config";
 
-@Injectable()
-export class AppService {
-  constructor(private configService: ConfigService) {}
+  @Injectable()
+  export class AppService {
+    constructor(private configService: ConfigService) {}
 
-  getHello() {
-    const host = this.configService.get<string>("DATABASE_HOST");
-    # DATABASE_PORT가 정의되지 않은 경우, 3000을 default로 설정한다.
-    const port = this.configService.get<number>("DATABASE_PORT", 3000);
-    return {
-      host,
-      port,
-    };
+    getHello() {
+      const host = this.configService.get<string>("DATABASE_HOST");
+      # DATABASE_PORT가 정의되지 않은 경우, 3000을 default로 설정한다.
+      const port = this.configService.get<number>("DATABASE_PORT", 3000);
+      return {
+        host,
+        port,
+      };
+    }
   }
-}
-```
+  ```
 
 ## 기타 등등
 
