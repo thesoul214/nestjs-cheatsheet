@@ -191,7 +191,7 @@ request객체, response객체, next()라는 미들웨어 메소드에 접근할 
 
 ### 기본 구조
 
-#### custom middleware 정의
+#### custom middleware 정의하기
 ```ts
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
