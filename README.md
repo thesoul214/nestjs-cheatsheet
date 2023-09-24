@@ -11,6 +11,7 @@
 - [Services](#services)
 - [DTO](#DTO)
 - [LifeCycle](#lifecycle)
+- [Middleware](#middleware)
 - [Pipes](#pipes)
 - [TypeORM](#typeORM)
 - [Data Associations](#associations)
@@ -76,14 +77,14 @@ nest g controller boards
 #### request.body를 획득하는 방법
 
 request.body전체 획득
-```nest.js
+```ts
 handler_name(@Body() body) {
   console.log('body', body);
 }
 ```
 
 request.body에서 특정 프로퍼티만 획득
-```nest.js
+```ts
 handler_name(
   @Body('title') title: string,
   @Body('description') description: string
@@ -96,12 +97,12 @@ handler_name(
 #### 파라미터 획득 방법
 
 id만 획득
-```nest.js
+```ts
 handler_name(@Param('id') id: string)
 ```
 
 여러개의 파라미터 획득
-```nest.js
+```ts
 handler_name(@Param() params: string[])
 ```
 
@@ -121,7 +122,7 @@ handler_name(@Param() params: string[])
 
 컨트롤러에서는 생성자에 서비스를 지정해주어야 Dependency Injection이 이루어진다.
 
-```nest.js
+```ts
 constructor(private boardsService: BoardsService){}
 ```
 
@@ -141,7 +142,7 @@ DB에서 데이터를 얻어 service나 controller등으로 보낼 때 사용한
 interface나 class를 이용해서 정의 가능하고, nestjs에서는 class를 추천
 
 dto.ts라는 확장자를 가진다. (예 : createBoard.dto.ts)
-```nest.js
+```ts
 export class CreateBoardDto {
   title: string;
   description: string;
@@ -150,14 +151,14 @@ export class CreateBoardDto {
 
 컨트롤러에서 사용하는 예제
 
-```nest.js
+```ts
 // 서비스 코드
 createBoard(createBoardDto: CreateBoardDto) {
   const {title, description} = createBoardDto
 }
 ```
 
-```nest.js
+```ts
 handler_name(
   @Body('title') title: string,
   @Body('description') description: string
@@ -181,6 +182,32 @@ handler_name(
 
 > 참조 : https://assu10.github.io/dev/2023/04/08/nest-middleware-guard-interceptor-pipe-exceptionfilter-lifecycle/
 
+## middleware
+
+`route handler`가 클라이언트 요청을 처리하기 전에 수행되는 기능
+
+request/response객체, next()라는 미들웨어 함수에 접근할 수 있다.
+
+use함수를 정의해야 하며 그 안에서 `next()` 함수를 실행하여 호출 스택상 다음 미들웨어에게 제어권을 전달할 수 있다.
+
+### 기본 구조
+
+```ts
+import { Injectable, NestMiddleware } from '@nestjs/common';
+import { Request, Response, NextFunction } from 'express';
+
+@Injectable()
+export class LoggerMiddleware implements NestMiddleware {
+  use(req: Request, res: Response, next: NextFunction) {
+    console.log('Request...');
+    next();
+  }
+}
+```
+
+```ts
+
+```
 
 ## Pipes
 
@@ -196,7 +223,7 @@ data transformation과 data validation 기능을 담당
 
   이 파이프는 모든 파라미터에 적용된다.
 
-  ```nest.js
+  ```ts
   @post()
   @UsePipes(pipe)
   createBoard(
@@ -211,7 +238,7 @@ data transformation과 data validation 기능을 담당
 
   title파라미터에만 적용되는 파이프 예
 
-  ```nest.js
+  ```ts
   @post()
   createBoard(
     @Body('title', ParameterPiple) title,
@@ -225,7 +252,7 @@ data transformation과 data validation 기능을 담당
 
   main.ts에 지정해준다.ㄴ
 
-  ```nest.js
+  ```ts
   app.useGlobalPipes(GlobalPipes);
   ```
 
@@ -249,7 +276,7 @@ npm install class-validator class-transformer --save
 createBoard.dto.ts
 
 IsNotEmpty 데코레이터 사용 예
-```nest.js
+```ts
 import { IsNotEmpty } from "class-validator";
 
 export class CreateBoardDto {
@@ -264,7 +291,7 @@ export class CreateBoardDto {
 boards.controller.ts
 
 컨트롤러에 Built-in Pipes인 ValidationPipe를 사용한다고 지정
-```nest.js
+```ts
 @post()
 @UsePipes(ValidationPipe)
 createBoard(createBoardDto: CreateBoardDto) {
@@ -295,7 +322,7 @@ PipeTransform 인터페이스를 구현하여 정의할 수 있다.
 board-status-validation.pipe.ts
 
 상태(status)가 PRIVATE과 PUBLIC만 가질 수 있도록 제한하는 pipe 예제
-```nest.js
+```ts
 export class BoardStatusValidationPipe implements PipeTransform
 {
   readonly StatusOptions = {
@@ -322,7 +349,7 @@ export class BoardStatusValidationPipe implements PipeTransform
 controller.ts
 
 Parameter-level Pipes로 사용
-```nest.js
+```ts
 @patch('/:id/status')
 handler_name(
   @Body('status', BoardStatusValidationPipe) status: BoardStatus
@@ -364,7 +391,7 @@ npm install pg typeorm @nestjs/typeorm --save
 @Entity() 데코레이터를 클래스에 설정하여 해당 클래스를 엔티티로 인식시킨다.
 
 board.entity.ts
-```nest.js
+```ts
 import { BaseEntity } from "typeorm";
 
 @Entity()
@@ -391,7 +418,7 @@ export class Board extends BaseEntity {
 
 1. board.repository.ts 생성
 
-```nest.js
+```ts
 import { EntityRepository, Repository } from "typeorm";
 import { Board } from "./board.entity";
 
@@ -407,7 +434,7 @@ export class BoardRepository extends Repository<Board> {
 
 Repository를 Services에서 사용하기 위해서는 주입을 해주어야 한다.
 
-```nest.js
+```ts
 export class BoardService {
   constructor(
     @InjectRepository(BoardRepository)
@@ -434,7 +461,7 @@ export class BoardService {
 
   - eager, lazy 등
 
-```nest.js
+```ts
 // user.entity.ts
 export class User extends BaseEntity{
   컬럼 정의
@@ -460,7 +487,7 @@ export class Board extends BaseEntity{
 
 ### queryBuilder 사용 예
 
-```nest.js
+```ts
 const query = this.boardRepository.createQueryBuilder('board');
 
 query.where('board.userId = :userId', {userId: user.id});
@@ -493,7 +520,7 @@ src/interceptors/serialize.interceptors.ts
 
 컨트롤러에 커스텀 데코레이터 지정
 
-```nest.js
+```ts
 @Serialize(UserDto)
 ```
 
@@ -505,7 +532,7 @@ built-in된 logger 클래스가 존재
 
 controller에서 로그 남기는 예
 
-```nest.js
+```ts
 export class BoardsController {
   private logger = new Logger('BoardsController');
 
@@ -540,7 +567,7 @@ dotenv 라이브러리는 .env파일과 환경변수 양쪽에서 구성 정보�
 
 #### 1. root 모듈에 configModule을 설정
 
-```nest.js
+```ts
 importb { ConfigModule } from '@nestjs/config';
 
 ConfigModule.forRoot({
@@ -558,7 +585,7 @@ ConfigModule.forRoot({
 root 모듈에서 `isGlobal: true`로 설정해 주었기 때문에 따로 module에서 ConfigModule을 import하지 않아도 된다.
 
 app.service.ts의 예
-```nest.js
+```ts
 import { ConfigService } from "@nestjs/config";
 
 @Injectable()
