@@ -167,7 +167,6 @@ handler_name(
 }
 
 // 위의 컨트롤러 코드를 DTO를 이용하면 아래와 같이 변경할 수 있다. 
-
 handler_name(
   @Body() createBoardDto: CreateBoardDto
 ) {
@@ -192,6 +191,7 @@ use함수를 정의해야 하며 그 안에서 `next()` 함수를 실행하여 �
 
 ### 기본 구조
 
+#### custom middleware 정의
 ```ts
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
@@ -205,8 +205,18 @@ export class LoggerMiddleware implements NestMiddleware {
 }
 ```
 
-```ts
+#### 모듈에 등록하기
+```ts:app.module.ts
+import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
+import { LoggerMiddleware } from './common/middleware/logger.middleware';
 
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(LoggerMiddleware)
+      .forRoutes('cats');
+  }
+}
 ```
 
 ## Pipes
