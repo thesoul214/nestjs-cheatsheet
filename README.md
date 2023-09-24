@@ -185,7 +185,7 @@ handler_name(
 
 `route handler`가 클라이언트 요청을 처리하기 전에 수행되는 기능
 
-request/response객체, next()라는 미들웨어 메소드에 접근할 수 있다.
+request객체, response객체, next()라는 미들웨어 메소드에 접근할 수 있다.
 
 use메소드를 정의해야 하며 그 안에서 `next()` 메소드를 실행하여 호출 스택상 다음 미들웨어에게 제어권을 전달할 수 있다.
 
