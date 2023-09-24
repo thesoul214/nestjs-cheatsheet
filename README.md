@@ -185,9 +185,9 @@ handler_name(
 
 `route handler`가 클라이언트 요청을 처리하기 전에 수행되는 기능
 
-request/response객체, next()라는 미들웨어 함수에 접근할 수 있다.
+request/response객체, next()라는 미들웨어 메소드에 접근할 수 있다.
 
-use함수를 정의해야 하며 그 안에서 `next()` 함수를 실행하여 호출 스택상 다음 미들웨어에게 제어권을 전달할 수 있다.
+use메소드를 정의해야 하며 그 안에서 `next()` 메소드를 실행하여 호출 스택상 다음 미들웨어에게 제어권을 전달할 수 있다.
 
 ### 기본 구조
 
@@ -205,6 +205,18 @@ export class LoggerMiddleware implements NestMiddleware {
 }
 ```
 
+function으로 정의하는 것도 가능하다.
+
+```ts
+import { Request, Response, NextFunction } from 'express';
+
+export function logger(req: Request, res: Response, next: NextFunction) {
+  console.log(`Request...`);
+  next();
+};
+
+```
+
 #### 모듈에 등록하기
 
 LoggerMiddleware를 AppModule에 등록
@@ -220,13 +232,23 @@ export class AppModule implements NestModule {
       .apply(LoggerMiddleware)
       .forRoutes('cats');
 
-
-    // 특정 path와 method만을 지정하는 방법도 있음
+    // 특정 path와 method만을 지정하거나 제외하는 방법도 있음
     // consumer
     //   .apply(LoggerMiddleware)
+    //   .exclude({ path: 'cats', method: RequestMethod.POST })
     //   .forRoutes({ path: 'cats', method: RequestMethod.GET });
   }
 }
+```
+
+### Global middleware
+
+모든 경로에 대해 middleware를 적용할 경우, main.ts에 use() 메소드를 이용한다.
+
+```ts
+const app = await NestFactory.create(AppModule);
+app.use(logger);
+await app.listen(3000);
 ```
 
 ## Pipes
@@ -623,7 +645,7 @@ export class AppService {
 
 ## 기타 등등
 
-- 미들웨어 : filter, guard
+- guard, filter
 
 - 커스텀 데코레이터?
 
