@@ -206,7 +206,7 @@ export class LoggerMiddleware implements NestMiddleware {
 ```
 
 #### 모듈에 등록하기
-```ts:app.module.ts
+```ts filename="app.module.ts"
 import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
 
