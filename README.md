@@ -12,7 +12,7 @@
 - [DTO](#DTO)
 - [Pipes](#pipes)
 - [TypeORM](#typeORM)
-- [Data Relations](#relations)
+- [Data Associations](#associations)
 - [Intercepter](#intercepter)
 - [Logging](#Logging)
 - [Configuration](#Configuration)
@@ -164,7 +164,7 @@ handler_name(
   return this.boardService.createBoard(title, description);
 }
 
-위의 컨트롤러 코드를 DTO를 이용하면 아래와 같이 변경할 수 있다. 
+// 위의 컨트롤러 코드를 DTO를 이용하면 아래와 같이 변경할 수 있다. 
 
 handler_name(
   @Body() createBoardDto: CreateBoardDto
@@ -264,6 +264,8 @@ createBoard(createBoardDto: CreateBoardDto) {
 ```
 
 > 데코레이터 종류 : https://github.com/typestack/class-validator#validation-decorators
+
+> transformer(string을 int로 변환 등) 종류 : https://github.com/typestack/class-transformer
 
 ### Custom Pipes
 
@@ -401,7 +403,7 @@ export class BoardService {
   constructor(
     @InjectRepository(BoardRepository)
     private boardRepository: BoardRepository
-  )
+  ) {}
 
   async getAllBoard(): Promise<Board[]> {
     return this.boardRepository.find();
@@ -409,7 +411,7 @@ export class BoardService {
 }
 ```
 
-## relations
+## associations
 
 참고 : https://orkhan.gitbook.io/typeorm/docs/many-to-one-one-to-many-relations
 
