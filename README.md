@@ -215,9 +215,16 @@ import { LoggerMiddleware } from './common/middleware/logger.middleware';
 
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
+    // CatsController에 정의된 /cats router handler에 적용
     consumer
       .apply(LoggerMiddleware)
       .forRoutes('cats');
+
+
+    // 특정 path와 method만을 지정하는 방법도 있음
+    // consumer
+    //   .apply(LoggerMiddleware)
+    //   .forRoutes({ path: 'cats', method: RequestMethod.GET });
   }
 }
 ```
