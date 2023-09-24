@@ -10,6 +10,7 @@
 - [프로바이더](#프로바이더)
 - [Services](#services)
 - [DTO](#DTO)
+- [LifeCycle](#lifecycle)
 - [Pipes](#pipes)
 - [TypeORM](#typeORM)
 - [Data Associations](#associations)
@@ -172,6 +173,12 @@ handler_name(
   return this.boardService.createBoard(createBoardDto);
 }
 ```
+## lifecycle
+
+<p align="center">
+  <img src="https://github.com/thesoul214/nestjs-cheatsheet/blob/master/lib/attached_images/lifecycle.png" alt="TypeScript"/>
+</p>
+
 
 ## Pipes
 
