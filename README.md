@@ -176,8 +176,9 @@ handler_name(
 ## lifecycle
 
 <p align="center">
-  <img src="https://github.com/thesoul214/nestjs-cheatsheet/blob/master/lib/attached_images/lifecycle.png" alt="TypeScript"/>
+  <img src="https://github.com/thesoul214/nestjs-cheatsheet/blob/main/lib/attached_images/lifecycle.png" alt="TypeScript"/>
 </p>
+> 참조 : https://assu10.github.io/dev/2023/04/08/nest-middleware-guard-interceptor-pipe-exceptionfilter-lifecycle/
 
 
 ## Pipes
