@@ -285,6 +285,12 @@ export class AppController {
 }
 ```
 
+## 미들웨어 vs 가드
+
+미들웨어는 next() 함수를 호출한 후 어떠한 핸들러가 실행될 지 알 수 없다. 반면 가드는 ExecutionContext 인스턴스에 액세스 할 수 있으므로 다음에 실행될 경로를 알 수 있다.
+
+미들웨어는 주로 인증과 관련된 처리를 하고, 가드는 주로 인가와 관련된 처리를 한다.
+
 ## Intercepter
 
 client에서 들어오는 요청이나 controller에서 client에 보내는 응답을 가로채서 특정한 처리를 하는 기능
