@@ -684,16 +684,6 @@ export class AppService {
 }
 ```
 
-## 기타 등등
-
-- guard, filter
-
-- 커스텀 데코레이터?
-
-
-
-
-
 ## Running the app
 
 ```bash
