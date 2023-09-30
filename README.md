@@ -285,6 +285,35 @@ export class AppController {
 }
 ```
 
+## Intercepter
+
+client에서 들어오는 요청이나 controller에서 client에 보내는 응답을 가로채서 특정한 처리를 하는 기능
+
+### user정보에서 password를 제거해서 클라이언트에 돌려주는 에제
+
+#### 1. intercepter와 관련 코드(Dto, 커스템 데코레이터 등) 정의
+
+intercept 메소드를 필수로 정의해야 하며, 이 메소드는 인터셉터가 실행될 때마다 자동으로 호출된다.
+
+파라미터 
+- context: 들어오는 요청에 대한 일부 정보를 감싸는 래퍼
+
+- next: 핸들러에 대한 참조
+
+실제 코드 
+
+src/interceptors/serialize.interceptors.ts
+
+#### 2. intercepter 사용
+
+컨트롤러에 커스텀 데코레이터 지정
+
+```ts
+@Serialize(UserDto)
+```
+
+2번까지 진행하면, user.dto.ts에 정의된 id, email 프로퍼티만 클라이언트에 전달한다.
+
 ## Pipes
 
 data transformation과 data validation 기능을 담당
@@ -572,35 +601,6 @@ const boards = await query.getMany();
 
 return boards;
 ```
-
-## Intercepter
-
-client에서 들어오는 요청이나 controller에서 client에 보내는 응답을 가로채서 특정한 처리를 하는 기능
-
-### user정보에서 password를 제거해서 클라이언트에 돌려주는 에제
-
-#### 1. intercepter와 관련 코드(Dto, 커스템 데코레이터 등) 정의
-
-intercept 메소드를 필수로 정의해야 하며, 이 메소드는 인터셉터가 실행될 때마다 자동으로 호출된다.
-
-파라미터 
-- context: 들어오는 요청에 대한 일부 정보를 감싸는 래퍼
-
-- next: 핸들러에 대한 참조
-
-실제 코드 
-
-src/interceptors/serialize.interceptors.ts
-
-#### 2. intercepter 사용
-
-컨트롤러에 커스텀 데코레이터 지정
-
-```ts
-@Serialize(UserDto)
-```
-
-2번까지 진행하면, user.dto.ts에 정의된 id, email 프로퍼티만 클라이언트에 전달한다.
 
 ## Logging
 
