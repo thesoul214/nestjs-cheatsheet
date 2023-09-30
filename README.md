@@ -12,6 +12,7 @@
 - [DTO](#DTO)
 - [LifeCycle](#lifecycle)
 - [Middleware](#middleware)
+- [Guard](#guard)
 - [Pipes](#pipes)
 - [TypeORM](#typeORM)
 - [Data Associations](#associations)
@@ -249,6 +250,39 @@ export class AppModule implements NestModule {
 const app = await NestFactory.create(AppModule);
 app.use(logger);
 await app.listen(3000);
+```
+
+## guard
+
+CanActivate 인터페이스를 구현하고 @Injectable() 데코레이터를 지정한 클래스
+
+하나의 역할만을 가지고 route handler가 request를 처리할지 말지 결정하므로 컨트롤러가 요청을 처리하기 전에 안전하지 않은 요청을 효과적으로 차단할 수 있다.
+
+기본 예제
+```ts
+import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
+
+@Injectable()
+export class AuthGuard implements CanActivate {
+  // canActivate 메소드에 가드의 로직을 작성
+  // ExecutionContext로 요청 경로/헤더/쿼리/바디 등을 읽을 수 있다.
+  canActivate(context: ExecutionContext) {
+    // true 혹은 Promise<true>를 반환했을 때만 해당 요청을 컨트롤러로 전달한다
+    return true;
+  }
+}
+```
+
+컨트롤러에 가드 적용
+```ts
+import { Controller, Get, UseGuards } from '@nestjs/common';
+import { AuthGuard } from './auth.guard';
+
+@UseGuards(AuthGuard)
+@Controller()
+export class AppController {
+  ...
+}
 ```
 
 ## Pipes
