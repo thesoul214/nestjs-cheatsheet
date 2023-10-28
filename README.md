@@ -693,8 +693,9 @@ https://orkhan.gitbook.io/typeorm/docs/using-cli
 
 ### typeorm CLI 설정
 
+package.json
+
 ```json
-// package.json
 {
   "scripts": {
     "typeorm": "typeorm-ts-node-commonjs"
