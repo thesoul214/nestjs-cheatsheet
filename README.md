@@ -20,6 +20,7 @@
 - [Intercepter](#intercepter)
 - [Logging](#Logging)
 - [Configuration](#Configuration)
+- [DB셋팅](#DB셋팅)
 
 ## 세팅파일
 
@@ -684,28 +685,23 @@ export class AppService {
 }
 ```
 
-## Running the app
+## DB셋팅
 
-```bash
-# development
-$ npm run start
+development, test, production등 모든 환경에서 DB 관련 변수를 설정하기 위한 메모
 
-# watch mode
-$ npm run start:dev
+https://orkhan.gitbook.io/typeorm/docs/using-cli
 
-# production mode
-$ npm run start:prod
+### typeorm CLI 설정
+
+```json
+// package.json
+{
+  "scripts": {
+    "typeorm": "typeorm-ts-node-commonjs"
+  }
+}
 ```
 
-## Test
+### ormconfig.js
 
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
+실제 파일 참고
